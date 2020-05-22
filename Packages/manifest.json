@@ -1,19 +1,22 @@
 {
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.animation.rigging": "0.2.3-preview",
+    "com.unity.animation.rigging": "0.2.6-preview",
     "com.unity.cinemachine": "2.4.0-preview.6",
     "com.unity.collab-proxy": "1.2.16",
+    "com.unity.demoteam.attributes": "https://github.com/Unity-Technologies/com.unity.demoteam.attributes.git",
+    "com.unity.demoteam.digital-human": "https://github.com/Unity-Technologies/com.unity.demoteam.digital-human.git",
+    "com.unity.demoteam.digital-human.sample": "https://github.com/Unity-Technologies/com.unity.demoteam.digital-human.sample.git",
     "com.unity.editorcoroutines": "0.0.2-preview.1",
     "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.visualstudio": "1.0.11",
-    "com.unity.ide.vscode": "1.1.4",
+    "com.unity.ide.vscode": "1.2.0",
     "com.unity.polybrush": "1.0.1",
     "com.unity.quicksearch": "1.4.1",
-    "com.unity.render-pipelines.high-definition": "7.2.0",
+    "com.unity.render-pipelines.high-definition": "7.3.1",
     "com.unity.render-pipelines.high-definition-config": "file:../LocalPackages/com.unity.render-pipelines.high-definition-config",
     "com.unity.textmeshpro": "2.0.1",
-    "com.unity.timeline": "1.2.10",
+    "com.unity.timeline": "1.2.14",
     "com.unity.ugui": "1.0.0",
     "li.lightingtools.lightmapswitcher": "file:../LocalPackages/LightingTools.LightmapSwitcher",
     "li.lightingtools.lightprobesvolumes": "file:../LocalPackages/LightingTools.LightProbesVolumes",
@@ -49,5 +52,19 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.unity.demoteam.attributes": {
+      "revision": "HEAD",
+      "hash": "060ff16961c47922480db7aff9098b993aae016b"
+    },
+    "com.unity.demoteam.digital-human": {
+      "revision": "HEAD",
+      "hash": "c6df20b16fc16198c7dc05040effa5d83c05c223"
+    },
+    "com.unity.demoteam.digital-human.sample": {
+      "revision": "HEAD",
+      "hash": "2cbf7f58687087f143f68317bf535bd3f7135e7d"
+    }
   }
 }

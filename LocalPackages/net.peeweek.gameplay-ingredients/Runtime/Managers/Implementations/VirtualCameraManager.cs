@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,21 @@ namespace GameplayIngredients
             Brain = GetComponent<CinemachineBrain>();
         }
 
+        private void Start()
+        {
+            Invoke(nameof(SetPosition), 1f);
+        }
+
+        private void SetPosition()
+        {
+            gameObject.transform.position = new Vector3(-5.86f, 0.68f, 4.6f);
+            gameObject.transform.eulerAngles = new Vector3(-6.152f, -4.022f, 0f);
+        }
+
+        private void Update()
+        {
+            gameObject.transform.position = new Vector3(-5.86f, 1.68f, 4.6f);
+            gameObject.transform.eulerAngles = new Vector3(-6.152f, -4.022f, 0f);
+        }
     }
 }

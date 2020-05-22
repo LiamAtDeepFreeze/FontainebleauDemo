@@ -9,8 +9,8 @@ namespace GameplayIngredients.Actions
 
         public override void Execute(GameObject instigator = null)
         {
-            Cursor.lockState = LockState;
-            Cursor.visible = CursorVisible;
+            //Cursor.lockState = LockState;
+            //Cursor.visible = CursorVisible;
         }
     }
 }
