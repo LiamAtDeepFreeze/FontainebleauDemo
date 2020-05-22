@@ -81,7 +81,8 @@ public class PhotoDemoPanelController : MonoBehaviour
         Debug.Log($"Set lens: {lens.name}");
         
         camera.fieldOfView = lens.fov;
-        firstPersonCamera.fieldOfView = lens.fov;
+        camera.sensorSize = lens.sensorSize;
+        camera.focalLength = lens.focalLength;
         additionalCameraData.physicalParameters = lens.physicalParameters;
         ResetCameras();
     }
@@ -105,7 +106,8 @@ public class PhotoDemoPanelController : MonoBehaviour
         public Button button;
         [Range(1,140)]
         public float fov = 70f;
-        public LensSettings lensSettings;
+        public Vector2 sensorSize = new Vector2(70,51);
+        public float focalLength = 50f;
         public HDPhysicalCamera physicalParameters = new HDPhysicalCamera();
     }
 }
