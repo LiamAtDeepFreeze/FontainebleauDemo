@@ -12,6 +12,11 @@ namespace GameplayIngredients
 
         public static T Get<T>() where T: Manager
         {
+            if (typeof(T) == typeof(VirtualCameraManager))
+            {
+                return VirtualCameraManager.Instance as T;
+            }
+            
             if(s_Managers.ContainsKey(typeof(T)))
                 return (T)s_Managers[typeof(T)];
             else
@@ -23,6 +28,11 @@ namespace GameplayIngredients
 
         public static bool Has<T>() where T:Manager
         {
+            if (typeof(T) == typeof(VirtualCameraManager))
+            {
+                return VirtualCameraManager.Instance != null;
+            }
+            
             return(s_Managers.ContainsKey(typeof(T)));
         }
 

@@ -20,8 +20,9 @@ public class PhotoDemoPanelController : MonoBehaviour
     public LensButton[] LensButtons;
 
     [Header("View Camera")] 
-    public CinemachineVirtualCamera firstPersonCamera;
+    public Camera firstPersonCamera;
     public Camera camera;
+    public List<Camera> cameras = new List<Camera>();
     public HDAdditionalCameraData additionalCameraData;
     
     private void Start()
@@ -53,6 +54,17 @@ public class PhotoDemoPanelController : MonoBehaviour
         }
     }
 
+    private void ResetCameras()
+    {
+        foreach (var camera in cameras)
+        {
+            var hdCamera = HDCamera.GetOrCreate(camera);
+            hdCamera.Reset();
+            hdCamera.volumetricHistoryIsValid = false;
+            hdCamera.colorPyramidHistoryIsValid = false;
+        }
+    }
+
     private void SetCameraLens(int index)
     {
         if (LensButtons.Length >= 0 || index >= 0)
@@ -69,14 +81,16 @@ public class PhotoDemoPanelController : MonoBehaviour
         Debug.Log($"Set lens: {lens.name}");
         
         camera.fieldOfView = lens.fov;
-        firstPersonCamera.m_Lens.FieldOfView = lens.fov;
+        firstPersonCamera.fieldOfView = lens.fov;
         additionalCameraData.physicalParameters = lens.physicalParameters;
+        ResetCameras();
     }
 
     private void ToggleViewFinder()
     {
         viewFinderContainer.gameObject.SetActive(!viewFinderContainer.gameObject.activeInHierarchy);
         showViewFinderButton.gameObject.SetActive(!viewFinderContainer.gameObject.activeInHierarchy);
+        ResetCameras();
     }
 
     private void TakePhoto()

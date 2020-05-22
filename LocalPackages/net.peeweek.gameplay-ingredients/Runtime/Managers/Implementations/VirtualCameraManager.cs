@@ -11,6 +11,9 @@ namespace GameplayIngredients
     [ManagerDefaultPrefab("VirtualCameraManager")]
     public class VirtualCameraManager : Manager
     {
+        private static VirtualCameraManager _instance;
+        public static VirtualCameraManager Instance => _instance;
+        
         public Camera Camera { get; private set; }
         public CinemachineBrain Brain { get; private set; }
 
@@ -22,18 +25,12 @@ namespace GameplayIngredients
 
         private void Start()
         {
-            Invoke(nameof(SetPosition), 1f);
+            _instance = this;
         }
 
         private void SetPosition()
         {
             gameObject.transform.position = new Vector3(-5.86f, 0.68f, 4.6f);
-            gameObject.transform.eulerAngles = new Vector3(-6.152f, -4.022f, 0f);
-        }
-
-        private void Update()
-        {
-            gameObject.transform.position = new Vector3(-5.86f, 1.68f, 4.6f);
             gameObject.transform.eulerAngles = new Vector3(-6.152f, -4.022f, 0f);
         }
     }

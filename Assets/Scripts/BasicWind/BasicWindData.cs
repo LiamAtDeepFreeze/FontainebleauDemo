@@ -15,25 +15,25 @@ namespace HDRPSamples
         //Debug
         public bool debug = false;
 
-        void Start()
+        private void Start()
         {
             windZone = gameObject.GetComponent<WindZone>();
             ApplySettings();
         }
 
-        void Update()
+        private void Update()
         {
             ApplySettings();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             ApplySettings();
         }
 
-        void ApplySettings()
+        private void ApplySettings()
         {
-            BasicWind windSettings = VolumeManager.instance.stack.GetComponent<BasicWind>();
+            var windSettings = VolumeManager.instance.stack.GetComponent<BasicWind>();
 
             if (windSettings == null)
                 return;
@@ -57,7 +57,7 @@ namespace HDRPSamples
             Shader.SetGlobalFloat(BasicWindShaderIDs.Attenuation, windSettings.attenuation.value);
         }
 
-        void GetDirectionAndSpeed()
+        private void GetDirectionAndSpeed()
         {
             windDirection = windZone.transform.forward;
             windSpeed = windZone.windMain;
@@ -65,13 +65,13 @@ namespace HDRPSamples
 
             if(debug)
             {
-                Debug.Log("Entity Direction " + windDirection);
-                Debug.Log("Shader value " + Shader.GetGlobalVector(BasicWindShaderIDs.WorldDirectionAndSpeed));
+                Debug.Log($"Entity Direction {windDirection.ToString()}");
+                Debug.Log($"Shader value {Shader.GetGlobalVector(BasicWindShaderIDs.WorldDirectionAndSpeed).ToString()}");
             }
         }
     }
 
-    static class BasicWindShaderIDs
+    internal static class BasicWindShaderIDs
     {
         internal static readonly int PlayerPos = Shader.PropertyToID("_BASICWIND_PlayerPositionAndRadius");
         internal static readonly int TexNoise = Shader.PropertyToID("_BASICWIND_TexNoise");
