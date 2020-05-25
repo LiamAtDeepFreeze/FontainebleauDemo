@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AzureSky;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
@@ -16,12 +18,18 @@ public class PhotoDemoPanelController : MonoBehaviour
     public Button showViewFinderButton;
     public Button takePhotoButton;
 
+    [Header("Time Of Day")] 
+    public TextMeshProUGUI timeOfDayDisplay;
+    public Slider timeOfDaySlider;
+    public AzureSkyController skyController;
+    public AzureTimeController timeController;
+
     [Header("Buttons")]
     public LensButton[] LensButtons;
 
     [Header("View Camera")] 
     public Camera firstPersonCamera;
-    public Camera camera;
+    public Camera viewPortCamera;
     public List<Camera> cameras = new List<Camera>();
     public HDAdditionalCameraData additionalCameraData;
     
@@ -42,6 +50,9 @@ public class PhotoDemoPanelController : MonoBehaviour
         hideViewFinderButton.onClick.AddListener(ToggleViewFinder);
         showViewFinderButton.onClick.AddListener(ToggleViewFinder);
         takePhotoButton.onClick.AddListener(TakePhoto);
+
+        timeOfDaySlider.maxValue = timeController.dayLength;
+        timeOfDaySlider.onValueChanged.AddListener(UpdateTimeOfDay);
     }
 
     private void ConfigureLensButtons()
@@ -54,11 +65,24 @@ public class PhotoDemoPanelController : MonoBehaviour
         }
     }
 
+    private void UpdateTimeOfDay(float value)
+    {
+        //timeController.timeline = value;
+        timeController.SetTimeline(value);
+        timeController.UpdateTimeSystem();
+    }
+
+    private void Update()
+    {
+        timeOfDayDisplay.SetText($"Current Time: {Math.Truncate(timeController.timeline).ToString()}:{((timeController.timeline - Math.Truncate(timeController.timeline)) * 60f).ToString("00")}");
+        timeOfDaySlider.value = timeController.timeline;
+    }
+
     private void ResetCameras()
     {
-        foreach (var camera in cameras)
+        foreach (var cam in cameras)
         {
-            var hdCamera = HDCamera.GetOrCreate(camera);
+            var hdCamera = HDCamera.GetOrCreate(cam);
             hdCamera.Reset();
             hdCamera.volumetricHistoryIsValid = false;
             hdCamera.colorPyramidHistoryIsValid = false;
@@ -80,9 +104,9 @@ public class PhotoDemoPanelController : MonoBehaviour
     {
         Debug.Log($"Set lens: {lens.name}");
         
-        camera.fieldOfView = lens.fov;
-        camera.sensorSize = lens.sensorSize;
-        camera.focalLength = lens.focalLength;
+        viewPortCamera.fieldOfView = lens.fov;
+        viewPortCamera.sensorSize = lens.sensorSize;
+        viewPortCamera.focalLength = lens.focalLength;
         additionalCameraData.physicalParameters = lens.physicalParameters;
         ResetCameras();
     }
