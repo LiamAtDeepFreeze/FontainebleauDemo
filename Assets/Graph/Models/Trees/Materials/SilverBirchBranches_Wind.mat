@@ -21,9 +21,9 @@ Material:
   disabledShaderPasses:
   - DistortionVectors
   - TransparentBackfaceDebugDisplay
-  - TransparentBackface
   - TransparentDepthPrepass
   - TransparentDepthPostpass
+  - TransparentBackface
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:

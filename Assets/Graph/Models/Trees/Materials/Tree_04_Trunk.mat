@@ -8,12 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_04_Trunk
-  m_Shader: {fileID: 4800000, guid: 756bac9090102564582875f4c7e30202, type: 3}
-  m_ShaderKeywords: _DETAIL_MAP _DISPLACEMENT_LOCK_TILING_SCALE _HEIGHTMAP _MASKMAP
-    _MATERIAL_FEATURE_SUBSURFACE_SCATTERING _MATERIAL_FEATURE_TRANSMISSION _NORMALMAP
-    _NORMALMAP_TANGENT_SPACE _TESSELLATION_DISPLACEMENT _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
+  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
+  m_ShaderKeywords: _DETAIL_MAP _HEIGHTMAP _MASKMAP _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
+    _MATERIAL_FEATURE_TRANSMISSION _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
@@ -189,7 +188,7 @@ Material:
     - _DiffusionProfileHash: 2.181737
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
-    - _DisplacementMode: 3
+    - _DisplacementMode: 0
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 1
