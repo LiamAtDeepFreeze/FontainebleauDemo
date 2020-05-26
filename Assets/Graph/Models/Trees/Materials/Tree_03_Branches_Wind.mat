@@ -22,8 +22,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_03_Branches_Wind
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_ShaderKeywords: _ADD_PRECOMPUTED_VELOCITY _ALPHATEST_ON _DOUBLESIDED_ON _MASKMAP
-    _NORMALMAP _NORMALMAP_TANGENT_SPACE
+  m_ShaderKeywords: _ADD_PRECOMPUTED_VELOCITY _ALPHATEST_ON _DISPLACEMENT_LOCK_TILING_SCALE
+    _DOUBLESIDED_ON _NORMALMAP _NORMALMAP_TANGENT_SPACE _VERTEX_DISPLACEMENT _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -80,6 +80,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DistortionVectorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -89,6 +93,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -109,7 +117,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 24b48ab360c988445bd1b9709c56acf5, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -129,6 +137,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowOffset:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -160,6 +172,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TranslucencyMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TransmittanceColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -187,6 +203,7 @@ Material:
     - _CoatCoverage: 1
     - _CoatIOR: 0.5
     - _CoatMask: 0
+    - _Cull: 2
     - _CullMode: 0
     - _CullModeForward: 0
     - _Cutoff: 0.5
@@ -202,7 +219,7 @@ Material:
     - _DiffusionProfileHash: 2.5626004
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
-    - _DisplacementMode: 0
+    - _DisplacementMode: 1
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 1
@@ -240,8 +257,8 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HdrpVersion: 1
-    - _HeightAmplitude: 0.01
-    - _HeightCenter: 0.5
+    - _HeightAmplitude: 0.02
+    - _HeightCenter: 1
     - _HeightMapParametrization: 0
     - _HeightMax: 1
     - _HeightMin: -1
@@ -279,6 +296,7 @@ Material:
     - _RequireSplitLighting: 0
     - _SSRefractionProjectionModel: 0
     - _SSSAndTransmissionType: 0
+    - _Shininess: 0.078125
     - _ShiverDirectionality: 0.545
     - _ShiverDrag: 0.05
     - _Smoothness: 1
@@ -289,6 +307,7 @@ Material:
     - _SpecularAAThreshold: 0.2
     - _SpecularHighlights: 1
     - _SpecularOcclusionMode: 1
+    - _SquashAmount: 1
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
@@ -328,6 +347,7 @@ Material:
     - _UVSec: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
+    - _WindQuality: 0
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3
     - _ZTestMode: 8
@@ -345,11 +365,14 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
