@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Deer
-  m_Shader: {fileID: 4800000, guid: 2cc37fdc3639643fbb9d4125d6693c01, type: 3}
-  m_ShaderKeywords: _MASKMAP _MATERIAL_FEATURE_ANISOTROPY _NORMALMAP _NORMALMAP_TANGENT_SPACE
+  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
+  m_ShaderKeywords: _MASKMAP _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -130,8 +130,8 @@ Material:
     - Vector1_53EF6B78: 0.8
     - Vector1_7D9AC3D3: 1
     - Vector1_901E5FC2: 1
-    - _AORemapMax: 0.97998
-    - _AORemapMin: 0.43543544
+    - _AORemapMax: 0.8278279
+    - _AORemapMin: 0.5395395
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
     - _AlbedoAffectEmissive: 0
@@ -201,7 +201,7 @@ Material:
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
-    - _MaterialID: 2
+    - _MaterialID: 1
     - _Metallic: 1
     - _NormalMapSpace: 0
     - _NormalScale: 1
@@ -218,9 +218,9 @@ Material:
     - _SecondarySpecularMultiplier: 0.5
     - _SecondarySpecularShift: -0.125
     - _Shininess: 256
-    - _Smoothness: 0.5
+    - _Smoothness: 0.607
     - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMin: 0
+    - _SmoothnessRemapMin: 0.6766767
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
     - _SpecularMultiplier: 0.5
