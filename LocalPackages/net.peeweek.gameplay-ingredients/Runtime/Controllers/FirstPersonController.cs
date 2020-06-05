@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameplayIngredients.Controllers
 {
@@ -8,6 +9,12 @@ namespace GameplayIngredients.Controllers
     public class FirstPersonController : MonoBehaviour
     {
         public bool Paused = false;
+
+        [Header("Starting Position")] 
+        public bool overrideStartingPosition;
+        public Vector3 startingPosition = new Vector3(-5.86f, 0.68f, 4.6f);
+        public bool overrideStartingRotation;
+        public Vector3 startingRotation = new Vector3(-6.152f, -4.022f, 0f);
 
         [Header("Objects")]
         [NonNullCheck]
@@ -54,8 +61,14 @@ namespace GameplayIngredients.Controllers
 
         private void SetPosition()
         {
-            gameObject.transform.position = new Vector3(-5.86f, 0.68f, 4.6f);
-            gameObject.transform.eulerAngles = new Vector3(-6.152f, -4.022f, 0f);
+            if (overrideStartingPosition)
+            {
+                gameObject.transform.position = startingPosition;
+            }
+            if (overrideStartingRotation)
+            {
+                gameObject.transform.eulerAngles = startingRotation;
+            }
         }
 
         public void Update()

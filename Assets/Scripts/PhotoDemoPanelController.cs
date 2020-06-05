@@ -17,8 +17,10 @@ public class PhotoDemoPanelController : MonoBehaviour
     public Button hideViewFinderButton;
     public Button showViewFinderButton;
     public Button takePhotoButton;
+    public Button toggleOverlay;
 
     [Header("Time Of Day")] 
+    public bool animateTimeOfDay;
     public TextMeshProUGUI timeOfDayDisplay;
     public Slider timeOfDaySlider;
     public AzureSkyController skyController;
@@ -26,6 +28,10 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     [Header("Buttons")]
     public LensButton[] LensButtons;
+
+    [Header("Overlay")] 
+    public Color overlayColor = Color.white;
+    public Image overlay;
 
     [Header("View Camera")] 
     public Camera firstPersonCamera;
@@ -40,6 +46,16 @@ public class PhotoDemoPanelController : MonoBehaviour
         
         //Set the default camera to 70mm
         SetCameraLens(1);
+
+        if (timeController == null)
+        {
+            timeOfDaySlider.transform.parent.gameObject.SetActive(false);
+        }
+
+        if (overlay != null)
+        {
+            overlay.color = overlayColor;
+        }
         
         //Hide the show view finder button if it is already active
         showViewFinderButton.gameObject.SetActive(!viewFinderContainer.gameObject.activeInHierarchy);
@@ -50,9 +66,13 @@ public class PhotoDemoPanelController : MonoBehaviour
         hideViewFinderButton.onClick.AddListener(ToggleViewFinder);
         showViewFinderButton.onClick.AddListener(ToggleViewFinder);
         takePhotoButton.onClick.AddListener(TakePhoto);
+        toggleOverlay.onClick.AddListener(ToggleOverlay);
 
-        timeOfDaySlider.maxValue = timeController.dayLength;
-        timeOfDaySlider.onValueChanged.AddListener(UpdateTimeOfDay);
+        if (timeController != null)
+        {
+            timeOfDaySlider.maxValue = timeController.dayLength;
+            timeOfDaySlider.onValueChanged.AddListener(UpdateTimeOfDay);
+        }
     }
 
     private void ConfigureLensButtons()
@@ -67,6 +87,7 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     private void UpdateTimeOfDay(float value)
     {
+        timeController.enabled = true;
         //timeController.timeline = value;
         timeController.SetTimeline(value);
         timeController.UpdateTimeSystem();
@@ -74,8 +95,18 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     private void Update()
     {
+        if (timeController == null)
+        {
+            return;
+        }
+    
         timeOfDayDisplay.SetText($"Current Time: {Math.Truncate(timeController.timeline).ToString()}:{((timeController.timeline - Math.Truncate(timeController.timeline)) * 60f).ToString("00")}");
         timeOfDaySlider.value = timeController.timeline;
+
+        if (timeController.enabled != animateTimeOfDay)
+        {
+            timeController.enabled = animateTimeOfDay;
+        }
     }
 
     private void ResetCameras()
@@ -91,18 +122,26 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     private void SetCameraLens(int index)
     {
+        //Reset button states
+        foreach (var lensButton in LensButtons)
+        {
+            lensButton.button.interactable = true;
+        }
+        
         if (LensButtons.Length >= 0 || index >= 0)
         {
             SetCameraLens(LensButtons[index]);
             return;
         }
-        
+
         SetCameraLens(LensButtons[0]);
     }
 
     private void SetCameraLens(LensButton lens)
     {
         Debug.Log($"Set lens: {lens.name}");
+
+        lens.button.interactable = false;
         
         viewPortCamera.fieldOfView = lens.fov;
         viewPortCamera.sensorSize = lens.sensorSize;
@@ -121,6 +160,11 @@ public class PhotoDemoPanelController : MonoBehaviour
     private void TakePhoto()
     {
         
+    }
+
+    private void ToggleOverlay()
+    {
+        overlay.enabled = !overlay.enabled;
     }
 
     [Serializable]
