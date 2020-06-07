@@ -1,8 +1,6 @@
-# Fontainebleau
+![.github/workflows/main.yml](https://github.com/LiamAtDeepFreeze/FontainebleauDemo/workflows/.github/workflows/main.yml/badge.svg?branch=master)
 
-Project for Unity 2019.3.0f6 using HDRP 7.2.0
-**Check the [changelog](https://github.com/Unity-Technologies/FontainebleauDemo/blob/master/Changelog.md) to see the latest updates.**
-
+# Photo Demo
 
 <img src = "https://forum.unity.com/proxy.php?image=https%3A%2F%2Fblogs.unity3d.com%2Fwp-content%2Fuploads%2F2018%2F03%2Fimage5-1280x720.png&hash=d4dd82baaada0823f75c693064c8c964" title = "Fontainebleau title screen" alt >
 
