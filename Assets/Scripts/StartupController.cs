@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class StartupController : MonoBehaviour
 {
+    public Camera startupCamera;
     public CanvasGroup canvasGroup;
     public Slider progressDisplay;
     public TextMeshProUGUI progressCounter;
@@ -24,7 +25,7 @@ public class StartupController : MonoBehaviour
 
     private void LoadScene()
     {
-        _sceneOperation = SceneManager.LoadSceneAsync(1);
+        _sceneOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         StartCoroutine(UpdateSceneProgress());
     }
 

@@ -119,15 +119,6 @@ public class PhotoDemoPanelController : MonoBehaviour
         }
     }
 
-    private void OnPostRender()
-    {
-        if (_captureQueued)
-        {
-            _captureQueued = false;
-            CaptureToFile();
-        }
-    }
-
     private void ResetCameras()
     {
         foreach (var cam in cameras)
@@ -178,7 +169,7 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     private void TakePhoto()
     {
-        flashEffect.SetTrigger(AnimationTriggerFlash);
+        flashEffect.Play(AnimationTriggerFlash);
         //CaptureToFile();
     }
 
