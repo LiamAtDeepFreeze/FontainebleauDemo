@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AzureSky;
 using UnityEngine.Rendering.HighDefinition;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utility;
 
 [RequireComponent(typeof(Canvas))]
 public class PhotoDemoPanelController : MonoBehaviour
 {
-    [Header("View Finder")]
+    [Header("View Finder")] 
+    public Canvas hudCanvas;
+    public bool canvasActive = true;
     public RectTransform viewFinderContainer;
     public Button hideViewFinderButton;
     public Button showViewFinderButton;
@@ -31,7 +30,8 @@ public class PhotoDemoPanelController : MonoBehaviour
     [Header("Message Display")] 
     public MessageDisplay messageDisplay;
 
-    [Header("Buttons")]
+    [Header("Buttons")] 
+    public int defaultLens = 1;
     public LensButton[] LensButtons;
 
     [Header("Overlay")] 
@@ -54,7 +54,8 @@ public class PhotoDemoPanelController : MonoBehaviour
         ConfigureLensButtons();
         
         //Set the default camera to 70mm
-        SetCameraLens(1);
+        SetCameraLens(defaultLens);
+        hudCanvas.enabled = canvasActive;
 
         if (timeController == null)
         {
@@ -178,7 +179,7 @@ public class PhotoDemoPanelController : MonoBehaviour
     private void TakePhoto()
     {
         flashEffect.SetTrigger(AnimationTriggerFlash);
-        CaptureToFile();
+        //CaptureToFile();
     }
 
     private void CaptureToFile()
@@ -193,23 +194,28 @@ public class PhotoDemoPanelController : MonoBehaviour
 
         try
         {
-            var texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+            //Force-render the camera
+            viewPortCamera.Render();
+            
             RenderTexture.active = renderTexture;
+
+            var texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
             texture.ReadPixels(new Rect(0,0, renderTexture.width, renderTexture.height),0,0);
             texture.Apply();
 
             RenderTexture.active = null;
 
             var fileName = DateTime.Now.ToString("yy-MMM-dd_HH-mm-ss");
-            var filePath = $"{Application.persistentDataPath}\\Captures\\";
+            var filePath = $"{Application.persistentDataPath}/Captures/";
             var fileLocation = $"{filePath}{fileName}.png";
             if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath);
             }
+            
+            //var fileLocation = $"{Application.persistentDataPath}/{fileName}.png";
 
             var bytes = texture.EncodeToPNG();
-            File.Create(fileLocation);
             File.WriteAllBytes(fileLocation, bytes);
             
             ShowPopup("Capture Saved", fileLocation);

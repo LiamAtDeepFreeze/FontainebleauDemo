@@ -43,6 +43,14 @@ namespace Utility.Editor
             {
                 return;
             }
+
+            if (Selection.activeGameObject != _selectedObject && _selectedObject != null)
+            {
+                for (int i = 0; i < _selectedObject.transform.childCount; i++)
+                {
+                    _selectedObject.transform.GetChild(i).gameObject.SetActive(true);
+                }
+            }
             
             //Only update the state for large parents
             if (_selectedObject != Selection.activeGameObject && Selection.activeGameObject.transform.childCount > _minChildCount)
@@ -157,7 +165,12 @@ namespace Utility.Editor
         {
             if (allChildren.Count == 0)
             {
-                RefreshState();
+                if (_selectedObject.transform.childCount == 0)
+                {
+                    return;
+                }
+                
+                Refresh();
             }
             
             _finalChildCount = Mathf.RoundToInt(_childCount * _reductionMultiplier);
@@ -197,22 +210,14 @@ namespace Utility.Editor
                 return;
             }
 
-            //Cache the child list before deletion
-            var cachedList = allChildren;
-            
             //Delete all children that are deactivated and their original state was active
-            for (var i = 0; i < cachedList.Count; i++)
+            for (var i = _selectedObject.transform.childCount - 1; i >= 0; i--)
             {
-                if (cachedList[i].GameObject.activeSelf == false && cachedList[i].OriginalState)
+                var currentChild = _selectedObject.transform.GetChild(i).gameObject;
+                if (!currentChild.activeInHierarchy)
                 {
-                    DestroyImmediate(allChildren[i].GameObject);
-                    allChildren.RemoveAt(i);
+                    DestroyImmediate(currentChild);
                 }
-            }
-
-            foreach (var child in allChildren)
-            {
-                child.GameObject.SetActive(child.OriginalState);
             }
 
             //Deselect the active object so that the state doesn't refresh
@@ -222,6 +227,7 @@ namespace Utility.Editor
         private void ClearSelection()
         {
             allChildren.Clear();
+            _selectedObject = null;
             Selection.activeGameObject = null;
         }
 
