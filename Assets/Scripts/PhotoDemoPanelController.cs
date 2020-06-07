@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.AzureSky;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Utility;
 
 [RequireComponent(typeof(Canvas))]
 public class PhotoDemoPanelController : MonoBehaviour
@@ -26,19 +28,26 @@ public class PhotoDemoPanelController : MonoBehaviour
     public AzureSkyController skyController;
     public AzureTimeController timeController;
 
+    [Header("Message Display")] 
+    public MessageDisplay messageDisplay;
+
     [Header("Buttons")]
     public LensButton[] LensButtons;
 
     [Header("Overlay")] 
     public Color overlayColor = Color.white;
     public Image overlay;
+    public Animator flashEffect;
 
     [Header("View Camera")] 
     public Camera firstPersonCamera;
     public Camera viewPortCamera;
     public List<Camera> cameras = new List<Camera>();
     public HDAdditionalCameraData additionalCameraData;
-    
+    private static readonly int AnimationTriggerFlash = Animator.StringToHash("Flash");
+
+    private bool _captureQueued;
+
     private void Start()
     {
         BindButtons();
@@ -109,6 +118,15 @@ public class PhotoDemoPanelController : MonoBehaviour
         }
     }
 
+    private void OnPostRender()
+    {
+        if (_captureQueued)
+        {
+            _captureQueued = false;
+            CaptureToFile();
+        }
+    }
+
     private void ResetCameras()
     {
         foreach (var cam in cameras)
@@ -159,7 +177,53 @@ public class PhotoDemoPanelController : MonoBehaviour
 
     private void TakePhoto()
     {
-        
+        flashEffect.SetTrigger(AnimationTriggerFlash);
+        CaptureToFile();
+    }
+
+    private void CaptureToFile()
+    {
+        var renderTexture = viewPortCamera.targetTexture;
+        if (renderTexture == null)
+        {
+            Debug.LogError("There is no active texture set for the current camera");
+            ShowPopup("Failed to save photo", "Target texture is null");
+            return;
+        }
+
+        try
+        {
+            var texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+            RenderTexture.active = renderTexture;
+            texture.ReadPixels(new Rect(0,0, renderTexture.width, renderTexture.height),0,0);
+            texture.Apply();
+
+            RenderTexture.active = null;
+
+            var fileName = DateTime.Now.ToString("yy-MMM-dd_HH-mm-ss");
+            var filePath = $"{Application.persistentDataPath}\\Captures\\";
+            var fileLocation = $"{filePath}{fileName}.png";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            var bytes = texture.EncodeToPNG();
+            File.Create(fileLocation);
+            File.WriteAllBytes(fileLocation, bytes);
+            
+            ShowPopup("Capture Saved", fileLocation);
+        }
+        catch (Exception exception)
+        {
+            ShowPopup("Failed to save photo", exception.Message);
+            throw;
+        }
+    }
+
+    private void ShowPopup(string message, string submessage = null)
+    {
+        messageDisplay.ShowMessage(message, submessage);
     }
 
     private void ToggleOverlay()
