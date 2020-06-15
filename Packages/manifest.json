@@ -1,19 +1,17 @@
 {
   "dependencies": {
+    "com.deepfreeze.debugterminal": "https://github.com/DeepFreezeGames/com.deepfreeze.debugterminal.git",
+    "com.deepfreeze.events": "https://github.com/DeepFreezeGames/com.deepfreeze.events.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.aovrecorder": "0.1.1-preview.2",
     "com.unity.cinemachine": "2.4.0-preview.6",
     "com.unity.collab-proxy": "1.2.16",
-    "com.unity.demoteam.attributes": "https://github.com/Unity-Technologies/com.unity.demoteam.attributes.git",
-    "com.unity.demoteam.digital-human": "https://github.com/Unity-Technologies/com.unity.demoteam.digital-human.git",
-    "com.unity.demoteam.digital-human.sample": "https://github.com/Unity-Technologies/com.unity.demoteam.digital-human.sample.git",
-    "com.unity.editorcoroutines": "0.0.2-preview.1",
+    "com.unity.editorcoroutines": "1.0.0",
     "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.visualstudio": "1.0.11",
-    "com.unity.ide.vscode": "1.2.0",
+    "com.unity.ide.vscode": "1.2.1",
     "com.unity.polybrush": "1.0.1",
     "com.unity.postprocessing": "2.3.0",
-    "com.unity.quicksearch": "1.4.1",
     "com.unity.render-pipelines.high-definition": "7.3.1",
     "com.unity.render-pipelines.high-definition-config": "7.3.1",
     "com.unity.textmeshpro": "2.0.1",
@@ -55,17 +53,13 @@
     "com.unity.modules.xr": "1.0.0"
   },
   "lock": {
-    "com.unity.demoteam.attributes": {
+    "com.deepfreeze.debugterminal": {
       "revision": "HEAD",
-      "hash": "060ff16961c47922480db7aff9098b993aae016b"
+      "hash": "7e72e8c5cd9a27c656740cbb4c2ab4a7ef648fd1"
     },
-    "com.unity.demoteam.digital-human": {
+    "com.deepfreeze.events": {
       "revision": "HEAD",
-      "hash": "c6df20b16fc16198c7dc05040effa5d83c05c223"
-    },
-    "com.unity.demoteam.digital-human.sample": {
-      "revision": "HEAD",
-      "hash": "2cbf7f58687087f143f68317bf535bd3f7135e7d"
+      "hash": "e48f544e6bc8ef6b8fde145b3f858f63cd5de2f2"
     }
   }
 }
