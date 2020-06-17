@@ -219,8 +219,8 @@ Material:
     - _SecondarySpecularShift: -0.125
     - _Shininess: 256
     - _Smoothness: 0.607
-    - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMin: 0.6766767
+    - _SmoothnessRemapMax: 0
+    - _SmoothnessRemapMin: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
     - _SpecularMultiplier: 0.5
